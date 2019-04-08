@@ -2,7 +2,7 @@
  
 #用法
 maven { url 'https://jitpack.io' }
-compile 'com.github.wangdanlizhiyun:liveEventBus:1.0.0'
+compile 'com.github.wangdanlizhiyun:bus:1.0.0'
   
   ```
   sendEvent(EVENT_A, "aaa")
