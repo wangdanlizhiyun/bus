@@ -133,6 +133,7 @@ public class LiveBus implements ILiveBus {
         void onDestroy() {
             if (mWeakLifecycle.get() != null) {
                 mWeakLifecycle.get().removeObserver(this);
+                getInstance().unregister(this);
             }
         }
     }
