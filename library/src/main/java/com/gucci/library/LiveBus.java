@@ -3,8 +3,11 @@ package com.gucci.library;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.util.SparseArray;
+import com.gucci.lifecycle.LifecycleListener;
+import com.gucci.lifecycle.ManagerRetriever;
 
 import java.lang.ref.WeakReference;
 import java.util.Observable;
@@ -52,10 +55,9 @@ public class LiveBus implements ILiveBus {
     }
 
     @Override
-    public void listener(Lifecycle lifecycle, EventObserver eventObserver) {
-        eventObserver.mWeakLifecycle = new WeakReference<>(lifecycle);
-        lifecycle.addObserver(eventObserver);
+    public LifecycleListener listener(EventObserver eventObserver) {
         mEvent.addObserver(eventObserver);
+        return eventObserver.generateLifecycleListener();
     }
 
     @Override
@@ -85,14 +87,57 @@ public class LiveBus implements ILiveBus {
         }
     }
 
-    public static abstract class EventObserver<T> implements java.util.Observer, LifecycleObserver {
+    public static abstract class EventObserver<T> implements java.util.Observer {
         int key;
-        WeakReference<Lifecycle> mWeakLifecycle;
+        LifecycleListener lifecycleListener;
         boolean isOnStarted = false;
         T value = null;
 
         public EventObserver(int key) {
             this.key = key;
+        }
+
+        public LifecycleListener generateLifecycleListener(){
+            if (lifecycleListener == null){
+                lifecycleListener = new LifecycleListener(){
+
+                    @Override
+                    public void onStop() {
+                        isOnStarted = false;
+                    }
+
+                    @Override
+                    public void onStart() {
+                        isOnStarted = true;
+                        if (value != null) {
+                            onChange(value);
+                        }
+                    }
+
+                    @Override
+                    public void onResume() {
+
+                    }
+
+                    @Override
+                    public void onPause() {
+
+                    }
+
+                    @Override
+                    public void onDestory() {
+                        if (value != null) {
+                            getInstance().unregister(EventObserver.this);
+                        }
+                    }
+
+                    @Override
+                    public void onCreate() {
+
+                    }
+                };
+            }
+            return lifecycleListener;
         }
 
         @Override
@@ -101,7 +146,7 @@ public class LiveBus implements ILiveBus {
                 try {
                     EventBean<T> bean = (EventBean<T>) arg;
                     if (bean.key == key) {
-                        if (mWeakLifecycle == null || isOnStarted) {
+                        if (lifecycleListener == null || isOnStarted) {
                             value = null;
                             onChange(bean.value);
                         } else {
@@ -115,27 +160,6 @@ public class LiveBus implements ILiveBus {
             }
         }
         public abstract void onChange(T o);
-
-        @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-        void onStop() {
-            isOnStarted = false;
-        }
-
-        @OnLifecycleEvent(Lifecycle.Event.ON_START)
-        void onStart() {
-            isOnStarted = true;
-            if (value != null) {
-                onChange(value);
-            }
-        }
-
-        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        void onDestroy() {
-            if (mWeakLifecycle.get() != null) {
-                mWeakLifecycle.get().removeObserver(this);
-                getInstance().unregister(this);
-            }
-        }
     }
 
 }

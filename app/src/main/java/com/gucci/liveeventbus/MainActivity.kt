@@ -52,11 +52,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         //注册不带生命周期的事件监听
-        register(mEvent)
+//        register(mEvent)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        unregister(mEvent)
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        unregister(mEvent)
+//    }
 }

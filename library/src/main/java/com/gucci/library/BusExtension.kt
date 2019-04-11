@@ -1,10 +1,14 @@
 package com.gucci.library
 
+import android.app.Activity
 import android.arch.lifecycle.LifecycleOwner
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import com.gucci.library.LiveBus.EventObserver
+import com.gucci.lifecycle.watch
 
 /**
  * Created by 李志云 2019/1/2 17:05
@@ -34,12 +38,33 @@ fun unregister(eventObserver: EventObserver<Any>) {
     LiveBus.getInstance().unregister(eventObserver)
 }
 
-fun <T> LifecycleOwner.listener(key: Int, action: (T) -> Unit) {
-    LiveBus.getInstance().listener(lifecycle, object : EventObserver<T>(key) {
+fun <T> FragmentActivity.listener(key: Int, action: (T) -> Unit) {
+    LiveBus.getInstance().listener(object : EventObserver<T>(key) {
         override fun onChange(o: T) {
             action(o)
         }
-    })
+    }).watch(this)
+}
+fun <T> Activity.listener(key: Int, action: (T) -> Unit) {
+    LiveBus.getInstance().listener(object : EventObserver<T>(key) {
+        override fun onChange(o: T) {
+            action(o)
+        }
+    }).watch(this)
+}
+fun <T> Fragment.listener(key: Int, action: (T) -> Unit) {
+    LiveBus.getInstance().listener(object : EventObserver<T>(key) {
+        override fun onChange(o: T) {
+            action(o)
+        }
+    }).watch(this)
+}
+fun <T> android.app.Fragment.listener(key: Int, action: (T) -> Unit) {
+    LiveBus.getInstance().listener(object : EventObserver<T>(key) {
+        override fun onChange(o: T) {
+            action(o)
+        }
+    }).watch(this)
 }
 
 fun <T> registerStick(key: Int, action: (T) -> Unit) {
