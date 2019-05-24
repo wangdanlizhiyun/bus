@@ -8,7 +8,7 @@ import android.os.Looper
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import com.gucci.library.LiveBus.EventObserver
-import com.gucci.lifecycle.watch
+import com.gucci.lifecycle.bind
 
 /**
  * Created by 李志云 2019/1/2 17:05
@@ -43,28 +43,28 @@ fun <T> FragmentActivity.listener(key: Int, action: (T) -> Unit) {
         override fun onChange(o: T) {
             action(o)
         }
-    }).watch(this)
+    }) bind this
 }
 fun <T> Activity.listener(key: Int, action: (T) -> Unit) {
     LiveBus.getInstance().listener(object : EventObserver<T>(key) {
         override fun onChange(o: T) {
             action(o)
         }
-    }).watch(this)
+    }) bind this
 }
 fun <T> Fragment.listener(key: Int, action: (T) -> Unit) {
     LiveBus.getInstance().listener(object : EventObserver<T>(key) {
         override fun onChange(o: T) {
             action(o)
         }
-    }).watch(this)
+    }) bind this
 }
 fun <T> android.app.Fragment.listener(key: Int, action: (T) -> Unit) {
     LiveBus.getInstance().listener(object : EventObserver<T>(key) {
         override fun onChange(o: T) {
             action(o)
         }
-    }).watch(this)
+    }) bind this
 }
 
 fun <T> registerStick(key: Int, action: (T) -> Unit) {
