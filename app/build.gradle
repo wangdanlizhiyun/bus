@@ -28,5 +28,5 @@ dependencies {
     implementation "org.jetbrains.anko:anko:$anko_version"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     implementation project(path: ':library')
-//    implementation 'com.github.wangdanlizhiyun:bus:1.1.2'
+//    implementation 'com.github.wangdanlizhiyun:bus:1.2.0'
 }

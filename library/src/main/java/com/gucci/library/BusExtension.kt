@@ -1,13 +1,11 @@
 package com.gucci.library
 
 import android.app.Activity
-import android.arch.lifecycle.LifecycleOwner
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
-import com.gucci.library.LiveBus.EventObserver
+import android.view.View
 import com.gucci.lifecycle.bind
 
 /**
@@ -37,7 +35,13 @@ fun register(eventObserver: EventObserver<Any>) {
 fun unregister(eventObserver: EventObserver<Any>) {
     LiveBus.getInstance().unregister(eventObserver)
 }
-
+fun <T> View.listener(key: Int, action: (T) -> Unit) {
+    LiveBus.getInstance().listener(object : EventObserver<T>(key) {
+        override fun onChange(o: T) {
+            action(o)
+        }
+    }) bind this
+}
 fun <T> FragmentActivity.listener(key: Int, action: (T) -> Unit) {
     LiveBus.getInstance().listener(object : EventObserver<T>(key) {
         override fun onChange(o: T) {

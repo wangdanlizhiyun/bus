@@ -3,22 +3,36 @@ package com.gucci.liveeventbus
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.LinearLayout
 import com.gucci.library.*
 import org.jetbrains.anko.button
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.verticalLayout
 
 class MainActivity : AppCompatActivity() {
-    lateinit var mEvent: LiveBus.EventObserver<Any>
+    lateinit var mEvent: EventObserver<Any>
+    lateinit var mLl: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mEvent = object :LiveBus.EventObserver<Any>(EVENT_C){
+        val testView = TestView(this)
+        mEvent = object :EventObserver<Any>(EVENT_C){
             override fun onChange(o: Any?) {
 
             }
 
         }
-        verticalLayout {
+        mLl = verticalLayout {
+            button("addView"){
+                onClick {
+                    mLl.addView(testView)
+                }
+            }
+            button("deleteView"){
+                onClick {
+                    mLl.removeView(testView)
+                }
+            }
             button("进入第二个页面") {
                 onOneClick {
                     startActivity<SecondActivity>()

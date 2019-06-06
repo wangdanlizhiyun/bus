@@ -11,10 +11,10 @@ import com.gucci.lifecycle.LifecycleListener
 interface ILiveBus {
     fun sendEvent(key: Int, value: Any)
     fun sendStickEvent(key: Int, value: Any)
-    fun registerStick(eventObserver: LiveBus.EventObserver<*>)
+    fun registerStick(eventObserver: EventObserver<*>)
 
 
-    fun listener(eventObserver: LiveBus.EventObserver<*>):LifecycleListener
-    fun register(eventObserver: LiveBus.EventObserver<*>)
-    fun unregister(eventObserver: LiveBus.EventObserver<*>)
+    fun listener(eventObserver: EventObserver<*>):LifecycleListener
+    fun register(eventObserver: EventObserver<*>)
+    fun unregister(eventObserver: EventObserver<*>)
 }
