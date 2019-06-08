@@ -1,18 +1,8 @@
 package com.gucci.library;
 
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.OnLifecycleEvent;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.util.SparseArray;
 import com.gucci.lifecycle.LifecycleListener;
-import com.gucci.lifecycle.ManagerRetriever;
-import com.gucci.lifecycle.annotations.OnDestory;
-import com.gucci.lifecycle.annotations.OnStart;
-import com.gucci.lifecycle.annotations.OnStop;
 
-import java.lang.ref.WeakReference;
 import java.util.Observable;
 
 /**

@@ -1,7 +1,5 @@
 package com.gucci.library
 
-import android.arch.lifecycle.Lifecycle
-import android.support.v4.app.FragmentActivity
 import com.gucci.lifecycle.LifecycleListener
 
 /**
