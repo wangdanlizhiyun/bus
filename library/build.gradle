@@ -13,5 +13,5 @@ android {
 }
 
 dependencies {
-    api 'com.github.wangdanlizhiyun:lifecycle:2.0.0'
+    api 'com.github.wangdanlizhiyun:lifecycle:2.0.1'
 }
