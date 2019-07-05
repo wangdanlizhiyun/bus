@@ -6,9 +6,7 @@ import com.gucci.lifecycle.annotations.*;
 
 import java.util.Observable;
 
-/**
- * Created by 李志云 2019/6/7 04:25
- */
+
 public abstract class EventObserver<T> implements java.util.Observer, LifecycleListener {
     int key;
     LifecycleListener lifecycleListener;

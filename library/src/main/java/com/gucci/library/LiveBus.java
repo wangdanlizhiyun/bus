@@ -5,9 +5,7 @@ import com.gucci.lifecycle.LifecycleListener;
 
 import java.util.Observable;
 
-/**
- * Created by 李志云 2019/3/6 01:20
- */
+
 public class LiveBus implements ILiveBus {
     private static volatile LiveBus mInstance;
     EventObserverable mEvent;

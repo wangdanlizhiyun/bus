@@ -8,9 +8,6 @@ import android.support.v4.app.FragmentActivity
 import android.view.View
 import com.gucci.lifecycle.bind
 
-/**
- * Created by 李志云 2019/1/2 17:05
- */
 val sHandler = Handler(Looper.getMainLooper()){
     LiveBus.getInstance().sendEvent(it.arg1, it.obj)
     true

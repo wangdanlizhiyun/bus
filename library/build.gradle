@@ -13,7 +13,7 @@ android {
 }
 
 dependencies {
-    api 'com.github.wangdanlizhiyun:lifecycle:2.0.1'
+    api 'com.github.wangdanlizhiyun:lifecycle:4.0.0'
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

@@ -2,7 +2,7 @@
  
 #用法
 maven { url 'https://jitpack.io' }
-compile 'com.github.wangdanlizhiyun:bus:2.0.2'
+compile 'com.github.wangdanlizhiyun:bus:4.0.0'
   
   ```
   //注册livebus监听，ondestory时自动解绑
